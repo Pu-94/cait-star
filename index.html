@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cait官网</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* 星空容器 */
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* 更小的星星 */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: 
+                move var(--move-duration) linear infinite,
+                twinkle var(--duration) ease-in-out infinite;
+        }
+
+        /* 闪烁动画 */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 关键修改：循环移动动画 */
+        @keyframes move {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cosmic-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 0 15px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(106, 17, 203, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            scroll-margin-top: 60px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+        }
+
+        /* 返回首页按钮 */
+        .home-btn {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(78, 205, 196, 0.7);
+        }
+
+        /* 返回顶部按钮 */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(106, 17, 203, 0.5);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars-container"></div>
+
+    <nav>
+        <ul>
+            <li><button class="cosmic-btn" data-target="home">首页</button></li>
+            <li><button class="cosmic-btn" data-target="about">关于</button></li>
+            <li><button class="cosmic-btn" data-target="contact">联系</button></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h1>欢迎来到cait官网</h1>
+        <p>探索星辰大海的奥秘</p>
+    </section>
+
+    <section id="about">
+        <h1>关于我们</h1>
+        <p>我们致力于打造最炫酷的星空体验</p>
+        <a href="#home" class="home-btn">返回首页</a>
+    </section>
+
+    <section id="contact">
+        <h1>联系我们</h1>
+        <p>邮箱: contact@cait.com</p>
+        <a href="#home" class="home-btn">返回首页</a>
+    </section>
+
+    <!-- 返回顶部按钮 -->
+    <div id="back-to-top" title="返回顶部">↑</div>
+
+    <script>
+        // 优化后的星星创建函数
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 更小的星星尺寸
+                const size = Math.random() * 1.5 + 0.5;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 初始随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 动画参数
+                const duration = Math.random() * 5 + 3;
+                const moveDuration = Math.random() * 100 + 50;
+                
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--move-duration', `${moveDuration}s`);
+                
+                container.appendChild(star);
+            }
+        }
+
+        // 平滑滚动导航
+        document.querySelectorAll('.cosmic-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 显示/隐藏返回顶部按钮
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // 返回顶部功能
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 初始化
+        createStars();
+    </script>
+</body>
+</html>
