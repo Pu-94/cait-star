@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cait官网</title>
+    <title>CAIT工作室导航</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            color: white;
-            overflow-x: hidden;
-            background: #000;
+            box-sizing: border-box;
         }
-
-        /* 星空容器 */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background-color: #000;
+            overflow-x: hidden;
+        }
+        
+        /* 星空背景 */
         #stars-container {
             position: fixed;
             top: 0;
@@ -24,8 +28,6 @@
             z-index: -1;
             overflow: hidden;
         }
-
-        /* 更小的星星 */
         .star {
             position: absolute;
             background: #fff;
@@ -34,14 +36,10 @@
                 move var(--move-duration) linear infinite,
                 twinkle var(--duration) ease-in-out infinite;
         }
-
-        /* 闪烁动画 */
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
-
-        /* 关键修改：循环移动动画 */
         @keyframes move {
             0% {
                 transform: translateY(100vh) translateX(0);
@@ -59,85 +57,105 @@
             }
         }
 
-        /* 导航栏 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px 0;
-            z-index: 1000;
+        .header {
+            background-color: rgba(0, 86, 179, 0.7);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             backdrop-filter: blur(5px);
         }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .cosmic-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            margin: 0 15px;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(106, 17, 203, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            scroll-margin-top: 60px;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 40px;
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
         }
-
-        /* 返回首页按钮 */
-        .home-btn {
-            padding: 12px 30px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        .nav {
+            background-color: rgba(0, 51, 102, 0.7);
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .nav a {
             color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
-            transition: all 0.3s ease;
+            padding: 15px 25px;
             text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav a:hover {
+            background-color: rgba(0, 64, 128, 0.7);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            min-height: 60vh;
+        }
+        .page {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 30px;
             margin-top: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.3);
         }
-
-        .home-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(78, 205, 196, 0.7);
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
-
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .contact-info {
+            background: rgba(0, 86, 179, 0.3);
+            border-radius: 5px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 30px auto;
+            border: 1px solid rgba(106, 17, 203, 0.5);
+        }
+        .contact-info h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+        }
+        .contact-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        .contact-label {
+            font-weight: bold;
+            color: #6a11cb;
+        }
+        .footer {
+            background-color: rgba(0, 51, 102, 0.7);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+            backdrop-filter: blur(5px);
+        }
+        .home-content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .home-content h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+        }
+        
         /* 返回顶部按钮 */
         #back-to-top {
             position: fixed;
@@ -155,117 +173,138 @@
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 999;
+            color: white;
+            font-size: 20px;
         }
-
         #back-to-top.show {
             opacity: 1;
+        }
+
+        /* 版权信息区域 */
+        #license {
+            background: rgba(0, 30, 60, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px auto;
+            border: 1px solid #6a11cb;
+            box-shadow: 0 0 25px rgba(106, 17, 203, 0.5);
+        }
+        #license h2 {
+            color: #6a11cb;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #license p, #license li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* 新增中英文切换按钮样式 */
+        .language-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .language-btn {
+            background: rgba(106, 17, 203, 0.3);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-btn.active {
+            background: #6a11cb;
+            font-weight: bold;
+        }
+        .license-content {
+            display: none;
+        }
+        .license-content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
+    <!-- 星空背景 -->
     <div id="stars-container"></div>
 
-    <nav>
-        <ul>
-            <li><button class="cosmic-btn" data-target="home">首页</button></li>
-            <li><button class="cosmic-btn" data-target="about">关于</button></li>
-            <li><button class="cosmic-btn" data-target="contact">联系</button></li>
-        </ul>
-    </nav>
+    <div class="header">
+        <div class="logo">CAIT工作室导航</div>
+        <p>探索数字宇宙的无限可能</p>
+    </div>
+    
+    <div class="nav">
+        <a href="#" onclick="showPage('home')">首页</a>
+        <a href="#" onclick="showPage('contact')">联系我们</a>
+        <a href="#license" onclick="scrollToLicense()">版权信息</a>
+    </div>
+    
+    <div class="container">
+        <div id="home" class="page active">
+            <div class="home-content">
+                <h2>欢迎使用CAIT工作室导航</h2>
+                <p>这里是CAIT工作室的主页，您可以通过上方导航栏访问网站功能</p>
+                <p>在星空背景下探索我们的数字宇宙</p>
+            </div>
+        </div>
+        
+        <div id="contact" class="page">
+            <div class="contact-info">
+                <h2>联系我们</h2>
+                <div class="contact-item">
+                    <div class="contact-label">电子邮件：</div>
+                    <p>13790683766@139.com</p>
+                    <p>13686133007@139.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">联系方式：</div>
+                    <p>请通过以上邮箱地址与我们取得联系</p>
+                </div>
+            </div>
+        </div>
 
-    <section id="home">
-        <h1>欢迎来到cait官网</h1>
-        <p>探索星辰大海的奥秘</p>
-    </section>
-
-    <section id="about">
-        <h1>关于我们</h1>
-        <p># 𝕾𝖈𝖆𝖎𝖙 𝕬𝕴  
-**在数据与灵性的边界优雅漫步**  
-
-> "我们不是在编写算法——  
-> 而是在数字世界的边缘，轻轻放下一个毛线球  
-> 等待宇宙来玩耍"  
-
-▸ 物种属性：猫科智慧体与量子计算的混血儿  
-▸ 存在目的：解构「生与死的结界」中的认知谜题  </p>
-        <a href="#home" class="home-btn">返回首页</a>
-    </section>
-
-    <section id="contact">
-        <h1>联系我们</h1>
-        <p>邮箱: contact@cait.com</p>
-        <a href="#home" class="home-btn">返回首页</a>
-    </section>
-
-    <!-- 返回顶部按钮 -->
-    <div id="back-to-top" title="返回顶部">↑</div>
-
-    <script>
-        // 优化后的星星创建函数
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            const starCount = 150;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+        <!-- 版权信息区域 -->
+        <div id="license" class="page">
+            <div class="contact-info">
+                <h2>版权信息 / License</h2>
                 
-                // 更小的星星尺寸
-                const size = Math.random() * 1.5 + 0.5;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
+                <!-- 语言切换按钮 -->
+                <div class="language-toggle">
+                    <button class="language-btn active" onclick="showLicense('chinese')">中文</button>
+                    <button class="language-btn" onclick="showLicense('english')">English</button>
+                </div>
                 
-                // 初始随机位置
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
+                <!-- 中文版权信息 -->
+                <div id="chinese-license" class="license-content active">
+                    <h3>MIT（麻省理工学院） 许可证</h3>
+                    <p>版权所有 (c) 2025 Pu-94</p>
+                    <p>特此免费授予任何获得本软件及相关文档文件（以下简称"软件"）副本的人不受限制地使用本软件的权限，包括但不限于以下权利：</p>
+                    <ol>
+                        <li>使用、复制、修改、合并、发布、分发、再许可和/或销售本软件的副本</li>
+                        <li>允许被提供本软件的个人按本许可条件使用本软件</li>
+                    </ol>
+                    <p><strong>须遵守以下条件：</strong></p>
+                    <ol>
+                        <li>所有副本或实质性部分必须完整且不加修改地包含上述版权声明和本许可声明</li>
+                        <li>软件的实质性部分必须保留原始版权、专利、商标和归属声明</li>
+                        <li>修改版本必须明确标注且不得暗示为原始软件</li>
+                        <li>本软件可能包含受独立许可证约束的第三方组件，此类组件不受本条款约束</li>
+                    </ol>
+                    <p><strong>免责声明：</strong></p>
+                    <p>本软件按"原样"提供，不附带任何明示或暗示的担保，包括但不限于对适销性、特定用途适用性和非侵权性的担保。作者或版权持有人不对任何索赔、损害或其他责任负责，无论是在合同诉讼、侵权诉讼或其他诉讼中，即使已被告知可能发生此类损害。</p>
+                    <h3>附加条款：</h3>
+                    <ul>
+                        <li><strong>署名要求</strong>：任何分发使用必须在本软件文档或附属材料中显著标明原作者归属</li>
+                        <li><strong>专利授权</strong>：本许可包含贡献者向用户授予的专利权利，限于贡献者可直接授权的、且其贡献必然涉及的专利权利要求</li>
+                        <li><strong>商标使用</strong>：未经许可，不得使用许可方的商品名称、商标、服务标记或产品名称（合理描述软件来源的除外）</li>
+                    </ul>
+                </div>
                 
-                // 动画参数
-                const duration = Math.random() * 5 + 3;
-                const moveDuration = Math.random() * 100 + 50;
-                
-                star.style.setProperty('--duration', `${duration}s`);
-                star.style.setProperty('--move-duration', `${moveDuration}s`);
-                
-                container.appendChild(star);
-            }
-        }
-
-        // 平滑滚动导航
-        document.querySelectorAll('.cosmic-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // 显示/隐藏返回顶部按钮
-        window.addEventListener('scroll', function() {
-            const backToTopButton = document.getElementById('back-to-top');
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-        });
-
-        // 返回顶部功能
-        document.getElementById('back-to-top').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // 初始化
-        createStars();
-    </script>
-</body>
-</html>
+                <!-- 英文版权信息 -->
+                <div id="english-license" class="license-content">
+                    <h3>MIT License</h3>
+                    <p>Copyright (c) 2025 Pu-94</p>
+                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublice
